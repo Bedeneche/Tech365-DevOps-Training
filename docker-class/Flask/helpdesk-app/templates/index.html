@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Helpdesk Ticket System</title>
+</head>
+
+<body>
+
+    <h1>Helpdesk Ticket System</h1>
+
+    <h2>Create Ticket</h2>
+
+    <form action="/create-ticket" method="POST">
+
+        <label>Name:</label>
+        <input type="text" name="name" required>
+
+        <br><br>
+
+        <label>Issue:</label>
+        <textarea name="issue" required></textarea>
+
+        <br><br>
+
+        <label>Priority:</label>
+
+        <select name="priority">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+
+        <br><br>
+
+        <button type="submit">Create Ticket</button>
+
+    </form>
+
+    <hr>
+
+    <h2>Tickets</h2>
+
+    {% for ticket in tickets %}
+
+        <div>
+
+            <h3>Ticket #{{ ticket.id }}</h3>
+
+            <p>
+                <strong>Name:</strong>
+                {{ ticket.name }}
+            </p>
+
+            <p>
+                <strong>Issue:</strong>
+                {{ ticket.issue }}
+            </p>
+
+            <p>
+                <strong>Priority:</strong>
+                {{ ticket.priority }}
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                {{ ticket.status }}
+            </p>
+
+
+            <form action="/update-status/{{ ticket.id }}" method="POST">
+
+                <label>Update Status:</label>
+
+                <select name="status">
+                    <option value="Open">Open</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Resolved">Resolved</option>
+                </select>
+
+                <button type="submit">
+                    Update Status
+                </button>
+
+            </form>
+
+
+            <br>
+
+
+            <form action="/delete-ticket/{{ ticket.id }}" method="POST">
+
+                <button type="submit">
+                    Delete Ticket
+                </button>
+
+            </form>
+
+        </div>
+
+        <hr>
+
+    {% endfor %}
+
+</body>
+</html>
